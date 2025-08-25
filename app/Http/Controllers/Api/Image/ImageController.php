@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Api\Image;
 
 use App\Http\Controllers\Controller;
 use App\Models\Image;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Http\{JsonResponse, Request};
 
 class ImageController extends Controller
 {
@@ -16,7 +15,7 @@ class ImageController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $perPage = $request->input('per_page', 20);
+        $perPage = $request->input('per_page', 12);
 
         $images = Image::select('id', 'title', 'description', 'url', 'created_at')
             ->orderBy('created_at', 'desc')

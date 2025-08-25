@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Requests\User\{StoreUserRequest, UpdateUserRequest};
 use App\Models\User;
-use Illuminate\Http\{JsonResponse, Request};
+use Illuminate\Http\{JsonResponse, Response, Request};
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 
@@ -13,9 +13,10 @@ class AdminUserController extends Controller
     /**
      * Displays a list of users.
      *
+     * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         return response()->json(
             User::paginate($request->input('per_page', 50))
@@ -28,7 +29,7 @@ class AdminUserController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function show(int $id)
+    public function show(int $id): JsonResponse
     {
         $user = User::findOrFail($id);
         return response()->json([
@@ -42,7 +43,7 @@ class AdminUserController extends Controller
      * @param StoreUserRequest $request
      * @return JsonResponse
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request): JsonResponse
     {
         $data = $request->validated();
         if (isset($data['password'])) {
@@ -66,7 +67,7 @@ class AdminUserController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function update(UpdateUserRequest $request, int $id)
+    public function update(UpdateUserRequest $request, int $id): JsonResponse
     {
         $user = User::findOrFail($id);
         $data = $request->validated();
@@ -91,7 +92,7 @@ class AdminUserController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(int $id): Response
     {
         $user = User::findOrFail($id);
         $user->delete();

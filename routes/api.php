@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Middleware\RoleMiddleware;
 use App\Http\Controllers\Api\{
-    Auth\AuthController, Image\ImageController, Admin\AdminUserController, /*Admin\AdminImageController*/
+    Auth\AuthController, Image\ImageController, Admin\AdminUserController, Admin\AdminImageController
 };
 
 Route::post('/register', [AuthController::class, 'register']);
@@ -19,8 +19,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::resource('users', AdminUserController::class)->only([
             'index', 'show', 'store', 'update', 'destroy'
         ]);
-        /*Route::resource('images', AdminImageController::class)->only([
+        Route::resource('images', AdminImageController::class)->only([
             'index', 'show', 'store', 'update', 'destroy'
-        ]);*/
+        ]);
     });
 });
